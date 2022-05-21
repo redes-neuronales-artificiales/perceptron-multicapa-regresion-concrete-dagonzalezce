@@ -16,16 +16,16 @@ def pregunta_01():
     Carga y separación de los datos en `X` `y`
     """
     # Lea el archivo `concrete.csv` y asignelo al DataFrame `df`
-    df = df.read_csv("concrete.csv")  
+    df = pd.read_csv("concrete.csv")  
 
     # Asigne la columna `strength` a la variable `y`.
     y = df["strength"]  
 
     # Asigne una copia del dataframe `df` a la variable `X`.
-    X = df.copy(deep=False)  
+    x = df.copy(deep=False)  
 
     # Remueva la columna `strength` del DataFrame `X`.
-    X = X.drop(columns=["strength"])  
+    x = x.drop(columns=["strength"])  
 
     # Retorne `X` y `y`
     return x, y
@@ -50,7 +50,7 @@ def pregunta_02():
         y_train,  
         y_test,  
     ) = train_test_split(  
-        X,  
+        x,  
         y,  
         test_size=0.25,  
         random_state=12453,  
@@ -69,7 +69,9 @@ def pregunta_03():
     # Importe MLPRegressor
     # Importe MinMaxScaler
     # Importe Pipeline
-    from ____ import ____
+    from sklearn.neural_network import MLPRegressor
+    from sklearn.preprocessing import MinMaxScaler
+    from sklearn.pipeline import Pipeline
 
     # Cree un pipeline que contenga un estimador MinMaxScaler y un estimador
     # MLPRegressor
@@ -77,11 +79,11 @@ def pregunta_03():
         steps=[
             (
                 "minmaxscaler",
-                ____(___),  
+                MinMaxScaler(),  
             ),
             (
                 "mlpregressor",
-                ____(____),  
+                MLPRegressor(),  
             ),
         ],
     )
@@ -107,17 +109,12 @@ def pregunta_04():
     #   * Tasa de aprendijzaje inicial de 0.01, 0.05, 0.1
     #   * Un máximo de 5000 iteraciones
     #   * Use parada temprana
-
+    "minmaxscaler"    
+    "mlpregressor"
     param_grid = {
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
-        ___: ____,  
+        
     }
-
+    
     estimator = pregunta_03()
 
     # Especifique un objeto GridSearchCV con el pipeline y la malla de búsqueda,
@@ -127,8 +124,8 @@ def pregunta_04():
     gridsearchcv = GridSearchCV(
         estimator=estimator,
         param_grid=param_grid,
-        ___ = ____  
-        ___ = ____  
+        cv = 5, 
+        scoring='accuracy'  
     )
 
     return gridsearchcv
@@ -140,7 +137,7 @@ def pregunta_05():
     """
 
     # Importe mean_squared_error
-    from ____ import ____
+    from sklearn.metrics import mean_squared_error
 
     # Cargue las variables.
     x_train, x_test, y_train, y_test = pregunta_02()
@@ -152,18 +149,24 @@ def pregunta_05():
     estimator.fit(x_train, y_train)  #
 
     # Pronostique para las muestras de entrenamiento y validacion
-    y_trian_pred = ____.____(____)  
-    y_test_pred = ____.____(____)  
+    y_train_pred = estimator.predict(x_train)  
+    y_test_pred = estimator.predict(x_test)  
 
     # Calcule el error cuadrático medio de las muestras
-    mse_train = ____(  
-        ___,  
-        ___,  
+    mse_train = mean_squared_error(  
+        y_train,  
+        y_train_pred,  
     )
-    mse_test = ____(  
-        ___,  
-        ___,  
+    mse_test = mean_squared_error(  
+        y_test,  
+        y_test_pred,  
     )
 
     # Retorne el mse de entrenamiento y prueba
     return mse_train, mse_test
+
+if __name__ == "__main__":
+    mse_train, mse_test = pregunta_05()
+
+    print(mse_train)
+    print(mse_test)
