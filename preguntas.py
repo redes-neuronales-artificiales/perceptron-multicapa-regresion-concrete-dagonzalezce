@@ -83,7 +83,7 @@ def pregunta_03():
             ),
             (
                 "mlpregressor",
-                MLPRegressor(),  
+                MLPRegressor(max_iter=5000),  
             ),
         ],
     )
@@ -112,7 +112,6 @@ def pregunta_04():
     "minmaxscaler"    
     "mlpregressor"
     param_grid = {
-        
     }
     
     estimator = pregunta_03()
