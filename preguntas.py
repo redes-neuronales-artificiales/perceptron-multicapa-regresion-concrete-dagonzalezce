@@ -83,7 +83,7 @@ def pregunta_03():
             ),
             (
                 "mlpregressor",
-                MLPRegressor(max_iter=5000),  
+                MLPRegressor(),  
             ),
         ],
     )
@@ -112,6 +112,7 @@ def pregunta_04():
     "minmaxscaler"    
     "mlpregressor"
     param_grid = {
+        "mlpregressor__max_iter":[5000]
     }
     
     estimator = pregunta_03()
@@ -163,8 +164,9 @@ def pregunta_05():
 
     # Retorne el mse de entrenamiento y prueba
     return mse_train, mse_test
-
+    
 if __name__ == "__main__":
+    print("Heeeey")
     mse_train, mse_test = pregunta_05()
 
     print(mse_train)
